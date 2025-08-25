@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:13-alpine
+    restart: always
+    shm_size: 128mb
+    environment:
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_DB=nexusdb
+      - POSTGRES_USER=example      
+      - POSTGRES_MULTIPLE_SCHEMAS=inventory_schema,
+
+    ports:
+      - 5432:5432
