@@ -11,13 +11,12 @@ import nexus.inventory.model.Book;
 import nexus.inventory.model.Category;
 import java.util.Set;
 
-
 public interface BookRepository extends JpaRepository<Book, String> {
-    @Query("SELECT DISTINCT b FROM Book b " +
-            "WHERE LOWER(b.title) LIKE LOWER(CONCAT('%', :term, '%')) " +
-            "OR LOWER(b.autor) LIKE LOWER(CONCAT('%', :term, '%')) " +
-            "OR LOWER(b.publisher) LIKE LOWER(CONCAT('%', :term, '%'))")
-    List<Book> findByTitleOrAutorOrPublisherContaining(@Param("term") String term);
+    @Query("SELECT DISTINCT b FROM book b WHERE " +
+            "LOWER(b.title) LIKE %:term% OR " +
+            "LOWER(b.publisher) LIKE %:term% OR " +
+            "LOWER(b.author) LIKE %:term%")
+    List<Book> searchBooks(@Param("term") String term);
 
     List<Book> findByBookCategory(Set<Category> bookCategory);
 

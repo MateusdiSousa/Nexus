@@ -1,12 +1,9 @@
 package nexus.inventory.service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +24,11 @@ public class BookService {
     @Autowired
     CategoryRepository categoryRepository;
 
-    public List<Book> findBooksByWord(String word) {
-        return bookRepository.findByTitleOrAutorOrPublisherContaining(word);
+    public List<Book> findBooksByWord(String term) throws BadRequestException {
+        if (term == null || term.isBlank() ) {
+            throw new BadRequestException("Word search cannot be empty");
+        }
+        return bookRepository.searchBooks(term.toLowerCase());
     }
 
     public Book createBook(BookDto bookDto) throws ConflictException {

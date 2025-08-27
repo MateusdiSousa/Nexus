@@ -23,7 +23,7 @@ import nexus.inventory.dto.BookDto;
 public class Book {
 
     public Book(BookDto bookDto) {
-        this.autor = bookDto.autor();
+        this.author = bookDto.autor();
         this.bookCode = bookDto.bookCode();
         this.price = bookDto.price();
         this.publisher = bookDto.publisher();
@@ -38,16 +38,16 @@ public class Book {
     @Column(unique = true, nullable = false, length = 12)
     private Long bookCode;
 
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false, length = 200)
     private String title;
 
-    @Column(nullable = false, length = 80)
-    private String autor;
+    @Column(nullable = false, length = 160)
+    private String author;
 
     @Column(nullable = false, length = 80)
     private String publisher;
 
-    @Column(nullable = false, length = 80)
+    @Column(nullable = false)
     private Integer publishYear;
 
     @ManyToMany
