@@ -14,12 +14,23 @@ import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import nexus.inventory.dto.BookDto;
 
 @Entity(name = "book")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Book {
+
+    public Book(BookDto bookDto) {
+        this.autor = bookDto.autor();
+        this.bookCode = bookDto.bookCode();
+        this.price = bookDto.price();
+        this.publisher = bookDto.publisher();
+        this.publishYear = bookDto.publishYear();
+        this.stock = bookDto.stock();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

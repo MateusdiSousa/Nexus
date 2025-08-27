@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import nexus.inventory.dto.CategoryDto;
 
 @Entity(name = "category")
 @Getter
@@ -29,4 +30,9 @@ public class Category {
 
     @ManyToMany(mappedBy = "bookCategory")
     Set<Book> books;
+
+    public Category(CategoryDto dto) {
+        this.name = dto.name();
+        this.categoryCode = dto.code();
+    } 
 }
