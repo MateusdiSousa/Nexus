@@ -18,7 +18,7 @@ public interface BookRepository extends JpaRepository<Book, String> {
             "LOWER(b.author) LIKE %:term%")
     List<Book> searchBooks(@Param("term") String term);
 
-    List<Book> findByBookCategory(Set<Category> bookCategory);
+    List<Book> findByBookCategoryIn(Set<Category> bookCategory);
 
     Optional<Book> findByBookCode(Long bookCode);
 }

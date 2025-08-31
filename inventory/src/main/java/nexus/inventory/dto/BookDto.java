@@ -10,6 +10,6 @@ public record BookDto(
     Integer publishYear,
     BigInteger price,
     Long stock,
-    List<String> listCodeCategory,
+    List<Integer> listCodeCategory,
     Long bookCode
 ) {}

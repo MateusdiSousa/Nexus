@@ -20,7 +20,7 @@ public class CategoryService {
         return repository.findAll();
     }
 
-    public Category getCategoryByCode(String categoryCode) throws NotFoundException {
+    public Category getCategoryByCode(Integer categoryCode) throws NotFoundException {
         Category category = repository.findOneByCategoryCode(categoryCode)
                 .orElseThrow(() -> new NotFoundException("Category not found or not exists"));
         return category;

@@ -46,7 +46,7 @@ public class BookService {
         return bookRepository.save(newBook);
     }
 
-    public List<Book> findBooksByCategory(List<String> codes) throws NotFoundException, BadRequestException {
+    public List<Book> findBooksByCategory(List<Integer> codes) throws NotFoundException, BadRequestException {
         if (codes.isEmpty()) {
             throw new BadRequestException("Category code list is mandatory.");
         }
@@ -56,6 +56,6 @@ public class BookService {
             throw new NotFoundException("Categories not found.");
         }
 
-        return bookRepository.findByBookCategory(categories);
+        return bookRepository.findByBookCategoryIn(categories);
     }
 }

@@ -2,6 +2,8 @@ package nexus.inventory.model;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,12 +25,13 @@ public class Category {
     private Integer id;
 
     @Column(nullable = false, length = 4)
-    private String categoryCode;
+    private Integer categoryCode;
 
     @Column(nullable = false, length = 20)
     private String name;
 
     @ManyToMany(mappedBy = "bookCategory")
+    @JsonIgnore
     Set<Book> books;
 
     public Category(CategoryDto dto) {
