@@ -22,10 +22,10 @@ public class BookService {
     private BookRepository bookRepository;
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     public List<Book> findBooksByWord(String term) throws BadRequestException {
-        if (term == null || term.isBlank() ) {
+        if (term == null || term.isBlank()) {
             throw new BadRequestException("Word search cannot be empty");
         }
         return bookRepository.searchBooks(term.toLowerCase());
@@ -57,5 +57,51 @@ public class BookService {
         }
 
         return bookRepository.findByBookCategoryIn(categories);
+    }
+
+    public Book updateBook(BookDto bookDto) throws ConflictException {
+        Book updatedBook = bookRepository.findByBookCode(bookDto.bookCode())
+                .orElseThrow(() -> new ConflictException("Book not found"));
+
+        updatedBook.setAuthor(bookDto.autor());
+        updatedBook.setTitle(bookDto.title());
+        updatedBook.setPrice(bookDto.price());
+        updatedBook.setPublishYear(bookDto.publishYear());
+        updatedBook.setPublisher(bookDto.publisher());
+        updatedBook.setStock(bookDto.stock());
+
+        if (bookDto.listCodeCategory().size() > 0) {
+            Set<Category> categories = categoryRepository.findByCategoryCodeIn(bookDto.listCodeCategory()).stream()
+                    .collect(Collectors.toSet());
+            updatedBook.setBookCategory(categories);
+        }
+
+        return bookRepository.save(updatedBook);
+    }
+
+    public Long increaseStock(Long bookCode, Long n) throws NotFoundException {
+        Book updatedBook = bookRepository.findByBookCode(bookCode)
+                .orElseThrow(() -> new NotFoundException("Book not found, use a valid code!"));
+
+        Long newStock = updatedBook.getStock() + n;
+        updatedBook.setStock(newStock);
+        bookRepository.save(updatedBook);
+
+        return newStock;
+    }
+
+    public Long decreaseStock(Long bookCode, Long n) throws NotFoundException {
+        Book updatedBook = bookRepository.findByBookCode(bookCode)
+                .orElseThrow(() -> new NotFoundException("Book not found, use a valid code!"));
+
+        Long newStock = updatedBook.getStock() - n;
+        updatedBook.setStock(newStock);
+        bookRepository.save(updatedBook);
+
+        return newStock;
+    }
+
+    public void deleteBook(Long bookCode) {
+        bookRepository.deleteByBookCode(bookCode);
     }
 }

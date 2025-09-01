@@ -21,4 +21,6 @@ public interface BookRepository extends JpaRepository<Book, String> {
     List<Book> findByBookCategoryIn(Set<Category> bookCategory);
 
     Optional<Book> findByBookCode(Long bookCode);
+
+    void deleteByBookCode(Long bookCode);
 }

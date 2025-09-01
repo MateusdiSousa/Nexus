@@ -13,5 +13,5 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<Category, Long>{
     Optional<Category> findOneByCategoryCode(Integer categoryCode);
     List<Category> findByCategoryCodeIn(List<Integer> codes);
-
+    void deleteByCategoryCode(Integer categoryCode);
 }

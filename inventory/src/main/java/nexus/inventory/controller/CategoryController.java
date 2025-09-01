@@ -14,13 +14,14 @@ import nexus.inventory.model.Category;
 import nexus.inventory.service.CategoryService;
 import nexus.inventory.dto.CategoryDto;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@RequestMapping("api/category")
+@RequestMapping("api/categories")
 @RestController
 public class CategoryController {
     @Autowired
@@ -49,5 +50,12 @@ public class CategoryController {
         Category updatedCategory = service.updateCategory(categoryDto);
 
         return ResponseEntity.ok(updatedCategory);
+    }
+
+    @DeleteMapping("{category_code}")
+    public ResponseEntity<String> deleteBook(@PathVariable("category_code") Integer categoryCode) {
+        service.deleteCategory(categoryCode);
+
+        return ResponseEntity.ok("Category deleted sucessfully");
     }
 }
