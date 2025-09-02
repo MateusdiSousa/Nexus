@@ -34,22 +34,15 @@ public class GlobalHandlerException extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errMessage);
     }
 
-    @ExceptionHandler(exception = Exception.class)
-    public ResponseEntity<ErrorResponse> handleUnknowException(BadRequestException e) {
-        ErrorResponse errMessage = new ErrorResponse(e.getMessage(), 400);
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errMessage);
-    }
-
     @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleAllUncaughtException(Exception exception) {
+    public ResponseEntity<ErrorResponse> handleAllUncaughtException(Exception exception) {
         logger.error("Unknown error occurred", exception);
 
-        return new ErrorResponse(
-                "Occurred an internal error on server",
+        ErrorResponse errMessage = new ErrorResponse("An internal error ocourr",
                 HttpStatus.INTERNAL_SERVER_ERROR.value());
-    }
 
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errMessage);
+    }
 }
 
 class ErrorResponse {
