@@ -48,7 +48,7 @@ public class BookController {
         return ResponseEntity.ok(books);
     }
 
-    @PostMapping()
+    @PutMapping()
     public ResponseEntity<Book> updateBook(@RequestBody BookDto dto) throws ConflictException {
         Book updatedBook = service.updateBook(dto);
         return ResponseEntity.ok(updatedBook);

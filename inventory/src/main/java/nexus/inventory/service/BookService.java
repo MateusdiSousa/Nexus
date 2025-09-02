@@ -65,6 +65,7 @@ public class BookService {
 
         updatedBook.setAuthor(bookDto.autor());
         updatedBook.setTitle(bookDto.title());
+        updatedBook.setDescription(bookDto.description());
         updatedBook.setPrice(bookDto.price());
         updatedBook.setPublishYear(bookDto.publishYear());
         updatedBook.setPublisher(bookDto.publisher());

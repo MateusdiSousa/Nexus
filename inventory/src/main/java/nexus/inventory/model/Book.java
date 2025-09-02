@@ -1,6 +1,7 @@
 package nexus.inventory.model;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -29,6 +30,7 @@ public class Book {
         this.publisher = bookDto.publisher();
         this.publishYear = bookDto.publishYear();
         this.stock = bookDto.stock();
+        this.description = bookDto.description();
     }
 
     @Id
@@ -49,6 +51,12 @@ public class Book {
 
     @Column(nullable = false)
     private Integer publishYear;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(length = 1000)
+    private String description;
 
     @ManyToMany
     @JoinTable(

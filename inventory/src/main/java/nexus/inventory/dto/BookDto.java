@@ -6,6 +6,7 @@ import java.util.List;
 public record BookDto(
     String title,
     String autor,
+    String description,
     String publisher,
     Integer publishYear,
     BigInteger price,
